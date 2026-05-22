@@ -12,20 +12,22 @@ import {
   View,
 } from 'react-native';
 
-export default function Login({ onSignupPress }) {
+export default function Signup({ onLoginPress }) {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = () => {
+  const handleSignup = () => {
+    const trimmedName = name.trim();
     const trimmedEmail = email.trim();
 
-    if (!trimmedEmail || !password) {
-      Alert.alert('Missing details', 'Enter your email and password to continue.');
+    if (!trimmedName || !trimmedEmail || !password) {
+      Alert.alert('Missing details', 'Enter your name, email, and password to continue.');
       return;
     }
 
-    Alert.alert('Login submitted', `Welcome back, ${trimmedEmail}.`);
+    Alert.alert('Account created', `Welcome, ${trimmedName}.`);
   };
 
   return (
@@ -42,11 +44,28 @@ export default function Login({ onSignupPress }) {
               </View>
               <Text style={styles.brandText}>The Fluid Executive</Text>
             </View>
-            <Text style={styles.title}>Sign in to your account</Text>
-            <Text style={styles.subtitle}>Enter your details below to access the atelier</Text>
+            <Text style={styles.title}>Create your account</Text>
+            <Text style={styles.subtitle}>Enter your details below to join the atelier</Text>
           </View>
 
           <View style={styles.form}>
+            <View style={styles.field}>
+              <Text style={styles.label}>Full name</Text>
+              <View style={styles.inputShell}>
+                <Text style={styles.inputIcon}>Aa</Text>
+                <TextInput
+                  autoCapitalize="words"
+                  autoComplete="name"
+                  onChangeText={setName}
+                  placeholder="Alex Rivera"
+                  placeholderTextColor="#c8c8d8"
+                  style={styles.input}
+                  textContentType="name"
+                  value={name}
+                />
+              </View>
+            </View>
+
             <View style={styles.field}>
               <Text style={styles.label}>Email address</Text>
               <View style={styles.inputShell}>
@@ -69,9 +88,6 @@ export default function Login({ onSignupPress }) {
             <View style={styles.field}>
               <View style={styles.labelRow}>
                 <Text style={styles.label}>Password</Text>
-                <Pressable hitSlop={8} style={styles.forgotButton}>
-                  <Text style={styles.inlineAction}>Forgot password?</Text>
-                </Pressable>
               </View>
               <View style={styles.inputShell}>
                 <Text style={styles.inputIcon}>*</Text>
@@ -82,7 +98,7 @@ export default function Login({ onSignupPress }) {
                   placeholderTextColor="#c8c8d8"
                   secureTextEntry={!showPassword}
                   style={styles.input}
-                  textContentType="password"
+                  textContentType="newPassword"
                   value={password}
                 />
                 <Pressable hitSlop={8} onPress={() => setShowPassword((current) => !current)}>
@@ -91,8 +107,8 @@ export default function Login({ onSignupPress }) {
               </View>
             </View>
 
-            <Pressable onPress={handleLogin} style={styles.loginButton}>
-              <Text style={styles.loginButtonText}>Sign in</Text>
+            <Pressable onPress={handleSignup} style={styles.primaryButton}>
+              <Text style={styles.primaryButtonText}>Create account</Text>
             </Pressable>
 
             <View style={styles.secureRow}>
@@ -103,9 +119,9 @@ export default function Login({ onSignupPress }) {
           </View>
 
           <View style={styles.footer}>
-            <Text style={styles.footerText}>Do not have an account?</Text>
-            <Pressable onPress={onSignupPress}>
-              <Text style={styles.footerAction}> Create one</Text>
+            <Text style={styles.footerText}>Already have an account?</Text>
+            <Pressable onPress={onLoginPress}>
+              <Text style={styles.footerAction}> Sign in</Text>
             </Pressable>
           </View>
         </ScrollView>
@@ -126,17 +142,17 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     paddingHorizontal: 22,
-    paddingVertical: 28,
+    paddingVertical: 24,
   },
   header: {
     alignItems: 'center',
-    marginBottom: 28,
+    marginBottom: 24,
   },
   brandRow: {
     alignItems: 'center',
     flexDirection: 'row',
     gap: 12,
-    marginBottom: 34,
+    marginBottom: 28,
   },
   brandMark: {
     alignItems: 'center',
@@ -182,10 +198,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderRadius: 28,
     paddingHorizontal: 24,
-    paddingVertical: 30,
+    paddingVertical: 28,
   },
   field: {
-    marginBottom: 22,
+    marginBottom: 18,
   },
   labelRow: {
     alignItems: 'center',
@@ -202,7 +218,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#e6e8ea',
     flexDirection: 'row',
-    minHeight: 56,
+    minHeight: 54,
     paddingHorizontal: 16,
   },
   inputIcon: {
@@ -217,7 +233,7 @@ const styles = StyleSheet.create({
     color: '#152536',
     flex: 1,
     fontSize: 18,
-    minHeight: 56,
+    minHeight: 54,
   },
   inlineAction: {
     color: '#003aa0',
@@ -230,16 +246,13 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     textTransform: 'uppercase',
   },
-  forgotButton: {
-    marginBottom: 16,
-  },
-  loginButton: {
+  primaryButton: {
     alignItems: 'center',
     backgroundColor: '#004fd2',
     justifyContent: 'center',
-    minHeight: 58,
+    minHeight: 56,
   },
-  loginButtonText: {
+  primaryButtonText: {
     color: '#ffffff',
     fontSize: 18,
     fontWeight: '800',
@@ -249,7 +262,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 12,
     justifyContent: 'center',
-    marginTop: 30,
+    marginTop: 26,
   },
   secureLine: {
     backgroundColor: '#e6e8ea',
