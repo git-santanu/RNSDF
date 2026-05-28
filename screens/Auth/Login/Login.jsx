@@ -12,8 +12,13 @@ import {
   View,
 } from 'react-native';
 import { styles } from './Styles';
+import {
+  createStaticNavigation,
+  useNavigation,
+} from '@react-navigation/native';
 
 export default function Login({ onSignupPress }) {
+  // const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -27,6 +32,7 @@ export default function Login({ onSignupPress }) {
     }
 
     Alert.alert('Login submitted', `Welcome back, ${trimmedEmail}.`);
+    // navigation.navigate('Dashboard');
   };
 
   return (
