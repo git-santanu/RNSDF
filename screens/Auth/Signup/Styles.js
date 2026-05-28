@@ -90,6 +90,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     minHeight: 54,
     paddingHorizontal: 16,
+    borderRadius: 10,
   },
   inputIcon: {
     color: '#787c88',
@@ -121,6 +122,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#004fd2',
     justifyContent: 'center',
     minHeight: 56,
+    borderRadius: 15,
   },
   primaryButtonText: {
     color: '#ffffff',
